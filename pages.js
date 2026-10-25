@@ -1,4 +1,4 @@
-import { setFavicon, importCSS, importJS, setContentOfHeader, setContentOfMain, setContentOfFooter, scrollUp, setTitle, setAttribute } from "./nether.js";
+import { setFavicon, importCSS, importJS, setContentOfHeader, setContentOfMain, setContentOfFooter, scrollUp, setTitle, setAttribute } from "./vorxel.js";
 
 window.showHome = showHome
 window.showFunctions = showFunctions
@@ -48,16 +48,13 @@ await importJS({
 await setContentOfHeader(`
     <div class="app-drawer-wrapper"></div>
     <button class="logo" onclick="showHome()" title="Displays home page">
-        <img src="img/icons/favicon.png" alt="Nether.js Logo">
+        <img src="img/icons/favicon.png" alt="vorxel.js Logo">
     </button>
 `)
 
 await setContentOfFooter(`
     <button onclick="showHome()" title="Displays Home Page">
-        <img src="img/icons/favicon.png" alt="Nether.js Logo">
-    </button>
-    <button onclick="showSourceCode()" title="Displays Source code page">
-        <img src="img/links-icons/source-code.svg" alt="Source code page icon">
+        <img src="img/icons/favicon.png" alt="vorxel.js Logo">
     </button>
     <button onclick="showFunctions()" title="Displays Functions page">
         <img src="img/links-icons/functions.svg" alt="Functions page icon">
@@ -69,16 +66,42 @@ await setContentOfFooter(`
 
 await setAttribute("html", "lang", "en")
 
+marked.use({
+    renderer: {
+        code({ text, lang }) {
+            const escapeHtml = (text) => {
+                return text
+                    .replaceAll("&", "&amp;")
+                    .replaceAll("<", "&lt;")
+                    .replaceAll(">", "&gt;")
+                    .replaceAll('"', "&quot;")
+                    .replaceAll("'", "&#039;");
+            };
+
+            return `
+                <div class="copy-box">
+                    <div class="head">
+                        <span class="language">${escapeHtml(lang || "")}</span>
+                    </div>
+                    <div class="body">
+                        <div class="code">${escapeHtml(text)}</div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+});
+
 async function showHome() {
     scrollUp()
-    setTitle("Nether.js")
+    setTitle("vorxel.js")
     setContentOfMain(`
     `)
 
     nwui.headings.create({
         parent: "main",
         level: 1,
-        content: "Nether.js"
+        content: "vorxel.js"
     });
 
     nwui.cards.create({
@@ -101,7 +124,7 @@ async function showHome() {
 
 async function showFunctions() {
     scrollUp();
-    setTitle("Functions - Nether.js");
+    setTitle("Functions - vorxel.js");
     setContentOfMain("");
 
     const functions = await fetch("db.json").then(r => r.json());
@@ -116,20 +139,25 @@ async function showFunctions() {
         id: "functions"
     })
 
-    functions.forEach(async func => {
-        const readme = await fetch(`readme/${func.toLowerCase()}.md`).then(r => r.text());
+    for (const func of functions) {
+        const readme = await fetch(
+            `readme/${func.toLowerCase()}.md`
+        ).then(r => r.text());
 
         nwui.tabs.addTab({
             title: func,
             parent: "#functions",
             innerHTML: marked.parse(readme)
-        })
-    })
+        });
+    }
 }
 
-function showAbout() {
-    scrollUp()
-    setTitle("About - Nether.js")
+async function showAbout() {
+    scrollUp();
+    setTitle("About - vorxel.js");
+
+    const about = await fetch("readme.md").then(r => r.text());
+    setContentOfMain(marked.parse(about))
 }
 
 

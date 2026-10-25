@@ -5,7 +5,7 @@ export function addClass(options = {}) {
     const message = [];
     const err = [];
 
-    message.push("nether.js - addClass");
+    message.push("vorxel.js - addClass");
 
     if (!classname) {
         err.push("class is missing")
@@ -40,7 +40,7 @@ export function addId(options) {
     const message = [];
     const err = [];
 
-    message.push("nether.js - addId");
+    message.push("vorxel.js - addId");
 
     if (!id) {
         err.push("id is missing")
@@ -78,7 +78,7 @@ export function createElement(options = {}) {
     const message = [];
     const err = [];
 
-    message.push("nether.js - createElement");
+    message.push("vorxel.js - createElement");
 
     if (!element) {
         err.push("element name is missing")
@@ -123,7 +123,7 @@ export function getURLParam(name) {
     const param = new URLSearchParams(location.search).get(name);
 
     if (param === null) {
-        console.error(`URL Param "${name}" not found in search bar. (nether.js - getURLParam)"`);
+        console.error(`URL Param "${name}" not found in search bar. (vorxel.js - getURLParam)"`);
         return;
     } else {
         return param;
@@ -136,11 +136,11 @@ export function importCSS(href) {
         link.rel = 'stylesheet';
         link.href = href;
         link.onload = () => {
-            console.log(`Stylesheet (CSS) loaded: ${href} (nether.js - importCSS)`);
+            console.log(`Stylesheet (CSS) loaded: ${href} (vorxel.js - importCSS)`);
             resolve();
         };
         link.onerror = () => {
-            console.error(`Stylesheet (CSS) Failed to load: ${href} (nether.js - importCSS)`);
+            console.error(`Stylesheet (CSS) Failed to load: ${href} (vorxel.js - importCSS)`);
             resolve();
         };
         document.head.appendChild(link);
@@ -156,11 +156,11 @@ export function importJS(options = {}) {
         const script = document.createElement('script');
         script.src = options.src;
         script.onload = () => {
-            console.log(`Script (JS) loaded: ${options.src} (nether.js - importJS)`);
+            console.log(`Script (JS) loaded: ${options.src} (vorxel.js - importJS)`);
             resolve();
         };
         script.onerror = () => {
-            console.error(`Script (JS) Failed to load: ${options.src} (nether.js - importJS)`);
+            console.error(`Script (JS) Failed to load: ${options.src} (vorxel.js - importJS)`);
             resolve();
         };
 
@@ -263,7 +263,7 @@ export function setAttribute(selector, attribute, content) {
     if (typeof selector === "string") selector = document.querySelector(selector);
 
     if (!selector) {
-        console.error(`Selector not found on page. (nether.js - setAttribute)`);
+        console.error(`Selector not found on page. (vorxel.js - setAttribute)`);
         return;
     }
     selector.setAttribute(attribute, content);
@@ -278,7 +278,7 @@ export function setContentOfFooter(content) {
     let footer = document.querySelector("footer");
 
     if (!footer) {
-        console.info("FOOTER created because it did not exist. (nether.js - setContentOfFooter)");
+        console.info("FOOTER created because it did not exist. (vorxel.js - setContentOfFooter)");
         footer = document.createElement("footer");
         document.body.appendChild(footer);
     }
@@ -289,7 +289,7 @@ export function setContentOfHeader(content) {
     let header = document.querySelector("header");
 
     if (!header) {
-        console.info("HEADER created because it did not exist. (nether.js - setContentOfHeader)");
+        console.info("HEADER created because it did not exist. (vorxel.js - setContentOfHeader)");
         header = document.createElement("header");
         document.body.appendChild(header);
     }
@@ -300,7 +300,7 @@ export function setContentOfMain(content) {
     let main = document.querySelector("main");
 
     if (!main) {
-        console.info("MAIN created because it did not exist. (nether.js - setContentOfMain)");
+        console.info("MAIN created because it did not exist. (vorxel.js - setContentOfMain)");
         main = document.createElement("main");
         document.body.appendChild(main);
     }
@@ -334,7 +334,7 @@ export function setHTML(selector, content) {
     if (typeof selector === "string") selector = document.querySelector(selector);
 
     if (!selector) {
-        console.error(`Selector not found on page. (nether.js - setHTML)`);
+        console.error(`Selector not found on page. (vorxel.js - setHTML)`);
         return;
     }
     selector.innerHTML = `${content}`;
@@ -349,7 +349,7 @@ export function setText(selector, content) {
     if (typeof selector === "string") selector = document.querySelector(selector);
 
     if (!selector) {
-        console.error(`Selector not found on page. (nether.js - setText)`);
+        console.error(`Selector not found on page. (vorxel.js - setText)`);
         return;
     }
     selector.innerText = `${content}`;

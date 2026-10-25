@@ -1,4 +1,4 @@
-# Contributing to Nether.js
+# Contributing to vorxel.js
 
 ## Reporting Issues
 
