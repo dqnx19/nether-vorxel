@@ -355,7 +355,7 @@ export function setFavicon(options = {}) {
     setIcon("apple-touch-icon");
 }
 
-export function setHTML(options) {
+export function setHTML(options = {}) {
     const selector = options.selector;
     const content = options.content;
 
