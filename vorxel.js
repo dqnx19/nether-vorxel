@@ -355,14 +355,13 @@ export function setFavicon(options = {}) {
     setIcon("apple-touch-icon");
 }
 
-export function setHTML(selector, content) {
-    if (typeof selector === "string") selector = document.querySelector(selector);
+export function setHTML(options) {
+    const selector = options.selector;
+    const content = options.content;
 
-    if (!selector) {
-        console.error(`Selector not found on page. (vorxel.js - setHTML)`);
-        return;
-    }
-    selector.innerHTML = `${content}`;
+    typeof selector === "string"
+        ? document.querySelector(selector).innerHTML = content
+        : selector.innerHTML = content
 }
 
 export function setId(target, id) {
