@@ -298,21 +298,28 @@ export async function savePDF(options = {}) {
 
 export function scrollUp(options = {}) {
     const smooth = options.smooth;
-    
+
     window.scrollTo({
         top: 0,
         behavior: smooth ? "smooth" : "instant"
     });
 }
 
-export function setAttribute(selector, attribute, content) {
-    if (typeof selector === "string") selector = document.querySelector(selector);
+export function setAttribute(options = {}) {
+    const selector = options.selector;
+    const attribute = options.attribute;
+    const value = options.value;
 
-    if (!selector) {
-        console.error(`Selector not found on page. (vorxel.js - setAttribute)`);
+    const element = typeof selector === "string"
+        ? document.querySelector(selector)
+        : selector;
+
+    if (!element) {
+        console.error(`Selector ${selector} not found on page. (vorxel.js - setAttribute)`);
         return;
     }
-    selector.setAttribute(attribute, content);
+
+    element.setAttribute(attribute, value);
 }
 
 export function setClass(target, className) {
