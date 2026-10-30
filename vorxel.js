@@ -119,9 +119,10 @@ export function getProtocol() {
     return location.protocol;
 }
 
-export function getURLParam(name) {
-    const param = new URLSearchParams(location.search).get(name);
+export function getURLParam(options = {}) {
+    const name = options.name;
 
+    const param = new URLSearchParams(location.search).get(name);
     if (param === null) {
         console.error(`URL Param "${name}" not found in search bar. (vorxel.js - getURLParam)"`);
         return;
@@ -130,7 +131,9 @@ export function getURLParam(name) {
     }
 }
 
-export function importCSS(href) {
+export function importCSS(options = {}) {
+    const href = options.href;
+
     return new Promise((resolve) => {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
@@ -147,26 +150,26 @@ export function importCSS(href) {
     });
 }
 
-export async function importCSSFromList(cssFilesList = []) {
-    await Promise.all(cssFilesList.map(file => importCSS(file)));
-}
-
 export function importJS(options = {}) {
+    const src = options.src;
+    const defer = options.defer;
+    const placement = options.placement;
+
     return new Promise((resolve) => {
         const script = document.createElement('script');
         script.src = options.src;
         script.onload = () => {
-            console.log(`Script (JS) loaded: ${options.src} (vorxel.js - importJS)`);
+            console.log(`Script (JS) loaded: ${src} (vorxel.js - importJS)`);
             resolve();
         };
         script.onerror = () => {
-            console.error(`Script (JS) Failed to load: ${options.src} (vorxel.js - importJS)`);
+            console.error(`Script (JS) Failed to load: ${src} (vorxel.js - importJS)`);
             resolve();
         };
 
-        script.defer = options.defer ? true : false;
+        script.defer = defer ? false : true;
 
-        const target = options.placement === "head"
+        const target = placement === "head"
             ? document.head
             : document.body;
 
@@ -174,20 +177,26 @@ export function importJS(options = {}) {
     });
 }
 
-export async function importJSFromList(jsFilesList = []) {
-    await Promise.all(jsFilesList.map(file => importJS(file)));
-}
+export function injectCSS(options = {}) {
+    const content = options.content;
 
-export function injectCSS(content) {
     const style = document.createElement('style');
     style.textContent = content;
     document.head.appendChild(style);
 }
 
-export function injectJS(content) {
+export function injectJS(options) {
+    const content = options.content;
+    const placement = options.placement;
+
     const script = document.createElement('script');
     script.textContent = content;
-    document.head.appendChild(script);
+
+    const target = placement === "head"
+        ? document.head
+        : document.body;
+
+    target.appendChild(script);
 }
 
 export function log(options = {}) {
@@ -208,10 +217,6 @@ export function log(options = {}) {
             console.info(options.message);
             break;
     }
-}
-
-export function multiply(number1, number2) {
-    return number1 * number2;
 }
 
 export function redirect(url, timing) {
