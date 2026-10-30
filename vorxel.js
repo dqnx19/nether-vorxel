@@ -266,9 +266,12 @@ export function removeClass(options = {}) {
     });
 }
 
-export function removeId(target) {
-    if (typeof target === "string") target = document.querySelector(target);
-    target.removeAttribute("id");
+export function removeId(options = {}) {
+    const target = options.target;
+
+    typeof target === "string"
+        ? document.querySelector(target).removeAttribute("id")
+        : target.removeAttribute("id")
 }
 
 export async function savePDF(options = {}) {
