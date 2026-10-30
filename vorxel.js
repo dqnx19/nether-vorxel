@@ -373,14 +373,18 @@ export function setId(options = {}) {
         : target.id = id;
 }
 
-export function setText(selector, content) {
-    if (typeof selector === "string") selector = document.querySelector(selector);
+export function setText(options = {}) {
+    const selector = options.selector;
+    const content = options.content;
 
     if (!selector) {
-        console.error(`Selector not found on page. (vorxel.js - setText)`);
+        console.error(`Selector ${selector} not found on page. (vorxel.js - setText)`);
         return;
     }
-    selector.innerText = `${content}`;
+    
+    typeof selector === "string"
+        ? document.querySelector(selector).textContent = content
+        : selector.textContent = content
 }
 
 export function setTitle(title) {
