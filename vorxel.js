@@ -389,10 +389,6 @@ export function setText(options = {}) {
 
 export function setTitle(options = {}) {
     const title = options.title;
-    
-    document.title = title;
-}
 
-export function subtract(number1, number2) {
-    return number1 - number2;
+    document.title = title;
 }
