@@ -332,26 +332,27 @@ export function setClass(options = {}) {
 }
 
 export function setFavicon(options = {}) {
-    const icon = document.querySelector("link[rel='icon']");
-    const touch_icon = document.querySelector("link[rel='apple-touch-icon']");
+    const url = options.url;
 
-    if (icon) {
-        icon.href = options.url;
-    } else {
-        const link = document.createElement("link");
-        link.rel = "icon";
-        link.href = path;
-        document.head.appendChild(link);
+    if (!url) {
+        console.error("URL is missing. (vorxel.js - setFavicon)");
+        return;
     }
 
-    if (touch_icon) {
-        touch_icon.href = path;
-    } else {
-        const link = document.createElement("link");
-        link.rel = "apple-touch-icon";
-        link.href = path;
-        document.head.appendChild(link);
-    }
+    const setIcon = (rel) => {
+        let icon = document.querySelector(`link[rel='${rel}']`);
+
+        if (!icon) {
+            icon = document.createElement("link");
+            icon.rel = rel;
+            document.head.appendChild(icon);
+        }
+
+        icon.href = url;
+    };
+
+    setIcon("icon");
+    setIcon("apple-touch-icon");
 }
 
 export function setHTML(selector, content) {
