@@ -387,7 +387,9 @@ export function setText(options = {}) {
         : selector.textContent = content
 }
 
-export function setTitle(title) {
+export function setTitle(options = {}) {
+    const title = options.title;
+    
     document.title = title;
 }
 
