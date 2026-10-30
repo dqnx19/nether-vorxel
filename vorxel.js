@@ -364,9 +364,13 @@ export function setHTML(options) {
         : selector.innerHTML = content
 }
 
-export function setId(target, id) {
-    if (typeof target === "string") target = document.querySelector(target);
-    target.id = id;
+export function setId(options = {}) {
+    const target = options.target;
+    const id = options.id;
+    
+    typeof target === "string"
+        ? document.querySelector(target).id = id
+        : target.id = id;
 }
 
 export function setText(selector, content) {
