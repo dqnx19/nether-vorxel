@@ -322,9 +322,13 @@ export function setAttribute(options = {}) {
     element.setAttribute(attribute, value);
 }
 
-export function setClass(target, className) {
-    if (typeof target === "string") target = document.querySelector(target);
-    target.className = className;
+export function setClass(options = {}) {
+    const target = options.target;
+    const classname = options.classname;
+
+    typeof target === "string"
+        ? document.querySelector(target).className = classname
+        : target.className = classname
 }
 
 export function setContentOfFooter(content) {
