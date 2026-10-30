@@ -219,10 +219,13 @@ export function log(options = {}) {
     }
 }
 
-export function redirect(url, timing) {
+export function redirect(options = {}) {
+    const url = options.url;
+    const delay = options.delay;
+
     setTimeout(() => {
         window.location.href = url;
-    }, timing);
+    }, delay);
 }
 
 export function removeClass(target, className) {
