@@ -296,10 +296,12 @@ export async function savePDF(options = {}) {
     pdf.save(filename);
 }
 
-export function scrollUp() {
+export function scrollUp(options = {}) {
+    const smooth = options.smooth;
+    
     window.scrollTo({
         top: 0,
-        behavior: "smooth"
+        behavior: smooth ? "smooth" : "instant"
     });
 }
 
