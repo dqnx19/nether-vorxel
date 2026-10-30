@@ -331,39 +331,6 @@ export function setClass(options = {}) {
         : target.className = classname
 }
 
-export function setContentOfFooter(content) {
-    let footer = document.querySelector("footer");
-
-    if (!footer) {
-        console.info("FOOTER created because it did not exist. (vorxel.js - setContentOfFooter)");
-        footer = document.createElement("footer");
-        document.body.appendChild(footer);
-    }
-    footer.innerHTML = content;
-}
-
-export function setContentOfHeader(content) {
-    let header = document.querySelector("header");
-
-    if (!header) {
-        console.info("HEADER created because it did not exist. (vorxel.js - setContentOfHeader)");
-        header = document.createElement("header");
-        document.body.appendChild(header);
-    }
-    header.innerHTML = content;
-}
-
-export function setContentOfMain(content) {
-    let main = document.querySelector("main");
-
-    if (!main) {
-        console.info("MAIN created because it did not exist. (vorxel.js - setContentOfMain)");
-        main = document.createElement("main");
-        document.body.appendChild(main);
-    }
-    main.innerHTML = content;
-}
-
 export function setFavicon(options = {}) {
     const icon = document.querySelector("link[rel='icon']");
     const touch_icon = document.querySelector("link[rel='apple-touch-icon']");
