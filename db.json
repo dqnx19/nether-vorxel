@@ -8,13 +8,10 @@
     "getProtocol",
     "getURLParam",
     "importCSS",
-    "importCSSFromList",
     "importJS",
-    "importJSFromList",
     "injectCSS",
     "injectJS",
     "log",
-    "multiply",
     "redirect",
     "removeClass",
     "removeId",
@@ -22,13 +19,9 @@
     "scrollUp",
     "setAttribute",
     "setClass",
-    "setContentOfFooter",
-    "setContentOfHeader",
-    "setContentOfMain",
     "setFavicon",
     "setHTML",
     "setId",
     "setText",
-    "setTitle",
-    "subtract"
+    "setTitle"
 ]

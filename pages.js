@@ -1,58 +1,69 @@
-import { setFavicon, importCSS, importJS, setContentOfHeader, setContentOfMain, setContentOfFooter, scrollUp, setTitle, setAttribute } from "./vorxel.js";
+import * as vorxel from "./vorxel.js";
 
 window.showHome = showHome
 window.showFunctions = showFunctions
 window.showAbout = showAbout
+const css = [
+    "https://web-ui.nether.click/fonts/lexend/lexend.css",
+    "https://web-ui.nether.click/components/css/all.css",
+    "https://web-ui.nether.click/components/css/app-drawer.css",
+    "https://web-ui.nether.click/components/css/body.css",
+    "https://web-ui.nether.click/components/css/copy-box.css",
+    "https://web-ui.nether.click/components/css/cards.css",
+    "https://web-ui.nether.click/components/css/footer.css",
+    "https://web-ui.nether.click/components/css/grouped-list.css",
+    "https://web-ui.nether.click/components/css/header.css",
+    "https://web-ui.nether.click/components/css/headings.css",
+    "https://web-ui.nether.click/components/css/main.css",
+    "https://web-ui.nether.click/components/css/section.css",
+    "https://web-ui.nether.click/components/css/tabs.css"
+]
 
-await importCSS("https://web-ui.nether.click/fonts/lexend/lexend.css");
+const js = [
+    "https://nether.click/js/import-app-drawer.js",
+    "https://web-ui.nether.click/components/js/all.js",
+    "https://web-ui.nether.click/components/js/app-drawer.js",
+    "https://web-ui.nether.click/components/js/tabs.js",
+    "https://web-ui.nether.click/components/js/headings.js",
+    "lib/marked.js",
+]
 
-await importCSS("https://web-ui.nether.click/components/css/all.css");
-await importCSS("https://web-ui.nether.click/components/css/app-drawer.css");
-await importCSS("https://web-ui.nether.click/components/css/body.css");
-await importCSS("https://web-ui.nether.click/components/css/copy-box.css");
-await importCSS("https://web-ui.nether.click/components/css/cards.css");
-await importCSS("https://web-ui.nether.click/components/css/footer.css");
-await importCSS("https://web-ui.nether.click/components/css/grouped-list.css");
-await importCSS("https://web-ui.nether.click/components/css/header.css");
-await importCSS("https://web-ui.nether.click/components/css/headings.css");
-await importCSS("https://web-ui.nether.click/components/css/main.css");
-await importCSS("https://web-ui.nether.click/components/css/section.css");
-await importCSS("https://web-ui.nether.click/components/css/tabs.css");
+css.forEach(file => {
+    vorxel.importCSS({ href: file })
+})
 
-await importJS({
-    src: "https://nether.click/js/import-app-drawer.js"
-});
-
-await importJS({
-    src: "https://web-ui.nether.click/components/js/all.js"
-});
-
-await importJS({
-    src: "https://web-ui.nether.click/components/js/app-drawer.js"
-});
-
-await importJS({
-    src: "https://web-ui.nether.click/components/js/tabs.js"
-});
-
-await importJS({
-    src: "https://web-ui.nether.click/components/js/headings.js"
-});
-
-await importJS({
-    src: "lib/marked.js"
+js.forEach(file => {
+    vorxel.importJS({ src: file })
 })
 
 // await setFavicon("img/icons/favicon.png");
+vorxel.createElement({
+    element: "header",
+    parent: document.body
+})
 
-await setContentOfHeader(`
-    <div class="app-drawer-wrapper"></div>
-    <button class="logo" onclick="showHome()" title="Displays home page">
-        <img src="img/icons/favicon.png" alt="vorxel.js Logo">
-    </button>
-`)
+vorxel.createElement({
+    element: "footer",
+    parent: document.body
+})
 
-await setContentOfFooter(`
+vorxel.createElement({
+    element: "main",
+    parent: document.body
+})
+
+vorxel.setHTML({
+    selector: "header",
+    content: `
+        <div class="app-drawer-wrapper"></div>
+        <button class="logo" onclick="showHome()" title="Displays home page">
+            <img src="img/icons/favicon.png" alt="vorxel.js Logo">
+        </button>
+`})
+
+vorxel.setHTML({
+    selector: "footer",
+    content: `
     <button onclick="showHome()" title="Displays Home Page">
         <img src="img/icons/favicon.png" alt="vorxel.js Logo">
     </button>
@@ -62,9 +73,13 @@ await setContentOfFooter(`
     <button onclick="showAbout()" title="Displays About page">
         <img src="img/links-icons/about.svg" alt="About page icon">
     </button>
-`)
+`})
 
-await setAttribute("html", "lang", "en")
+vorxel.setAttribute({
+    selector: "html",
+    attribute: "lang",
+    value: "en"
+})
 
 marked.use({
     renderer: {
@@ -92,11 +107,12 @@ marked.use({
     }
 });
 
+const pages = await fetch("json/pages.json").then(r => r.json());
+
 async function showHome() {
-    scrollUp()
-    setTitle("vorxel.js")
-    setContentOfMain(`
-    `)
+    vorxel.scrollUp()
+    vorxel.setTitle({ title: "Vorxel.js" })
+    vorxel.setHTML({ selector: "main", content: "" })
 
     nwui.headings.create({
         parent: "main",
@@ -109,9 +125,7 @@ async function showHome() {
         id: "links"
     })
 
-    const db = await fetch("json/pages.json").then(r => r.json());
-
-    db.forEach(element => {
+    pages.forEach(element => {
         nwui.cards.addCard({
             onclick: element.func,
             image: `img/links-icons/${element.techname}.svg`,
@@ -123,9 +137,9 @@ async function showHome() {
 }
 
 async function showFunctions() {
-    scrollUp();
-    setTitle("Functions - vorxel.js");
-    setContentOfMain("");
+    vorxel.scrollUp();
+    vorxel.setTitle({ title: "Functions - vorxel.js" });
+    vorxel.setHTML({ selector: "main", content: "" });
 
     const functions = await fetch("db.json").then(r => r.json());
 
@@ -153,11 +167,9 @@ async function showFunctions() {
 }
 
 async function showAbout() {
-    scrollUp();
-    setTitle("About - vorxel.js");
-
-    const about = await fetch("readme.md").then(r => r.text());
-    setContentOfMain(marked.parse(about))
+    vorxel.scrollUp();
+    vorxel.setTitle({ title: "About - vorxel.js" });
+    vorxel.setHTML({ selector: "main", content: marked.parse(await fetch("readme.md").then(r => r.text())) });
 }
 
 
