@@ -1,27 +1,17 @@
+import { returnReport } from "../internal/returnreport"
+
 export function addClass(options = {}) {
     const classname = options.class;
     const target = options.target;
 
-    const message = [];
-    const err = [];
-
-    message.push("vorxel.js - addClass");
-
-    if (!classname) {
-        err.push("class is missing")
-    }
-
-    if (!target) {
-        err.push("target is missing");
-    }
-
-    message.push("Found" + "" + err.length.toString() + "" + "Errors")
-
-    err.forEach(error => {
-        message.push(error)
+    returnReport({
+        func: "addClass",
+        errors: [
+            !classname ? "Class is missing" : null,
+            !target ? "Target is missing" : null,
+            !document.querySelector(target) || target ? "Target not found in DOM" : null
+        ]
     })
-
-    console.error(message.join("\n"));
 
     if (!target || !classname) {
         return;
