@@ -1,7 +1,7 @@
 export function returnReport(options = {}) {
     const func = options.func ?? "Unknown";
-    const errors = options.errors ?? [];
-    const warnings = options.warnings ?? [];
+    const errors = (options.errors ?? []).filter(Boolean);
+    const warnings = (options.warnings ?? []).filter(Boolean);
 
     const output = [
         "%cVorxel.js",
