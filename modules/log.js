@@ -1,3 +1,5 @@
+import { returnReport } from "../internal/returnreport.js"
+
 export function log(options = {}) {
     const type = options.type;
     const message = options.message;
