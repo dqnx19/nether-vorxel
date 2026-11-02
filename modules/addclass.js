@@ -1,4 +1,4 @@
-import { returnReport } from "../internal/returnreport"
+import { returnReport } from "../internal/returnreport.js"
 
 export function addClass(options = {}) {
     const classname = options.class;
