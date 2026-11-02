@@ -1,27 +1,17 @@
+import { returnReport } from "../internal/returnreport.js";
+
 export function createElement(options = {}) {
     const element = options.element;
     const parent = options.parent;
 
-    const message = [];
-    const err = [];
+    returnReport({
+        func: "createElement",
+        errors: [
+            !element ? "Element name is missing" : null,
+            !parent ? "Parent is missing" : null
+        ]
 
-    message.push("vorxel.js - createElement");
-
-    if (!element) {
-        err.push("element name is missing")
-    }
-
-    if (!parent) {
-        err.push("parent is missing");
-    }
-
-    message.push("Found" + "" + err.length.toString() + "" + "Errors")
-
-    err.forEach(error => {
-        message.push(error)
     })
-
-    console.error(message.join("\n"));
 
     if (!parent || !element) {
         return;
