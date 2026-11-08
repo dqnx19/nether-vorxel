@@ -1,18 +1,30 @@
 import { returnReport } from "../internal/returnreport.js";
 
-export function importCSS(options = {}) {
-    const href = options.href;
+export function importCSS(options) {
+    if (typeof options === "string") {
+        options = JSON.parse(options);
+    }
 
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = href;
-    link.onerror = () => {
-        returnReport({
-            func: "importCSS",
-            errors: [
-                `CSS Stylesheet "${href}" failed to load`
-            ]
+    const importFile = (href) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        link.onerror = () => {
+            returnReport({
+                func: "importCSS",
+                errors: [
+                    `CSS Stylesheet "${href}" failed to load`
+                ]
+            })
+        };
+        document.head.appendChild(link);
+    }
+
+    if (Array.isArray(options)) {
+        options.forEach(option => {
+            importFile(option.href)
         })
-    };
-    document.head.appendChild(link);
+    } else {
+        importFile(options.href)
+    }
 };
