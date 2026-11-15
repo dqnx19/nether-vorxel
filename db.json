@@ -12,6 +12,7 @@
     "injectCSS",
     "injectJS",
     "log",
+    "parseMarkdown",
     "redirect",
     "removeClass",
     "removeId",

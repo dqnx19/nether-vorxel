@@ -11,6 +11,7 @@ export * from "./modules/importjs.js";
 export * from "./modules/injectcss.js";
 export * from "./modules/injectjs.js";
 export * from "./modules/log.js";
+export * from "./modules/parsemarkdown.js"
 export * from "./modules/redirect.js";
 export * from "./modules/removeclass.js";
 export * from "./modules/removeid.js";

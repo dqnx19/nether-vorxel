@@ -1,0 +1,5 @@
+```javascript
+parseMarkdown() {
+    input: "" // markdown
+}
+```
