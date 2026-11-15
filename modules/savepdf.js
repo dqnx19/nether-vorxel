@@ -1,5 +1,6 @@
+import { jsPDF } from "../lib/jspdf.js";
+
 export async function savePDF(options = {}) {
-    const { jsPDF } = window.jspdf;
     const pdf = new jsPDF();
 
     options.content.forEach(object => {
