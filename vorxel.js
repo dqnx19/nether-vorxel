@@ -15,7 +15,6 @@ export { parseMarkdown } from "./modules/parsemarkdown.js";
 export { redirect } from "./modules/redirect.js";
 export { removeClass } from "./modules/removeclass.js";
 export { removeId } from "./modules/removeid.js";
-export { getCpu } from "./modules/getcpu.js";
 export { savePDF } from "./modules/savepdf.js";
 export { scrollUp } from "./modules/scrollup.js";
 export { setAttribute } from "./modules/setattribute.js";
