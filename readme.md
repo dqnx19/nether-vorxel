@@ -1,44 +1,33 @@
-# vorxel.js
+# Vorxel.js
 
 Vorxel.js is a JavaScript framework that provides useful functions for common web development tasks.
 
-### Features
+## Requirements
+- PowerShell (installing modules and readme files)
 
-Vorxel.js includes functions such as:
-- `setTitle` — set the page title.
-- `setFavicon` — set the page favicon.
-- `scrollUp` — scroll to the top of the page.
-
-## Installation (CDN)
-
-Import Vorxel.js directly from the CDN by adding the following code to your JavaScript module:
+## CDN Import
 
 ```javascript
-import * as njs from "https://vorxel.nether.click/vorxel.js";
+import * as vorxel from "https://vorxel.nether.click/vorxel.js";
 ```
 
-## Installation (Local)
-
-Download Vorxel.js into your project directory using the instructions for your operating system.
-
-### Windows (PowerShell)
+## Local installation
 
 ```powershell
 cd path/to/your/project
-curl.exe -fL "https://vorxel.nether.click/vorxel.js" -o "vorxel.js"
+curl -fsSL "https://vorxel.nether.click/install.ps1" | pwsh -NoProfile -
 ```
 
-### Linux / macOS (Terminal)
+Try this if the previous command didn't work:
 
-```bash
-cd /path/to/your/project
-curl -fL "https://vorxel.nether.click/vorxel.js" -o "vorxel.js"
+```powershell
+curl -fsSL "https://vorxel.nether.click/install.ps1" | powershell -NoProfile -
 ```
 
-After downloading, import Vorxel.js into your JavaScript module:
+## Local Import
 
 ```javascript
-import * as njs from "./vorxel.js";
+import * as vorxel from "./vorxel/vorxel.js";
 ```
 
 ## Developing with Vorxel.js
