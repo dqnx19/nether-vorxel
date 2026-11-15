@@ -11,6 +11,8 @@ $db = Get-Content ".\db.json" -Raw | ConvertFrom-Json
 
 Write-Host ""
 
+Invoke-WebRequest -Uri "https://vorxel.nether.click/vorxel.js" -OutFile "./vorxel/vorxel.js"
+
 foreach ($file in $db) {
  	$uri = "https://vorxel.nether.click/modules/$($file.ToLower()).js"
    	$response = Invoke-WebRequest -Uri $uri -OutFile "./vorxel/modules/${file}.js"
