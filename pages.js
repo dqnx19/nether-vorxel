@@ -1,13 +1,15 @@
 import * as vorxel from "./vorxel.js";
+import * as Headings from "https://web-ui.nether.click/components/js/headings.js"
+import * as Cards from "https://web-ui.nether.click/components/js/cards.js"
+import * as Tabs from "https://web-ui.nether.click/components/js/tabs.js"
 
 window.showHome = showHome
 window.showFunctions = showFunctions
 window.showAbout = showAbout
 const css = [
     "https://web-ui.nether.click/fonts/lexend/lexend.css",
-    "https://web-ui.nether.click/components/css/all.css",
+    "https://web-ui.nether.click/components/css/app.css",
     "https://web-ui.nether.click/components/css/app-drawer.css",
-    "https://web-ui.nether.click/components/css/body.css",
     "https://web-ui.nether.click/components/css/copy-box.css",
     "https://web-ui.nether.click/components/css/cards.css",
     "https://web-ui.nether.click/components/css/footer.css",
@@ -19,21 +21,8 @@ const css = [
     "https://web-ui.nether.click/components/css/tabs.css"
 ]
 
-const js = [
-    "https://nether.click/js/import-app-drawer.js",
-    "https://web-ui.nether.click/components/js/all.js",
-    "https://web-ui.nether.click/components/js/app-drawer.js",
-    "https://web-ui.nether.click/components/js/tabs.js",
-    "https://web-ui.nether.click/components/js/headings.js",
-    "lib/marked.js",
-]
-
 css.forEach(file => {
     vorxel.importCSS({ href: file })
-})
-
-js.forEach(file => {
-    vorxel.importJS({ src: file })
 })
 
 // await setFavicon("img/icons/favicon.png");
@@ -81,32 +70,6 @@ vorxel.setAttribute({
     value: "en"
 })
 
-marked.use({
-    renderer: {
-        code({ text, lang }) {
-            const escapeHtml = (text) => {
-                return text
-                    .replaceAll("&", "&amp;")
-                    .replaceAll("<", "&lt;")
-                    .replaceAll(">", "&gt;")
-                    .replaceAll('"', "&quot;")
-                    .replaceAll("'", "&#039;");
-            };
-
-            return `
-                <div class="copy-box">
-                    <div class="head">
-                        <span class="language">${escapeHtml(lang || "")}</span>
-                    </div>
-                    <div class="body">
-                        <div class="code">${escapeHtml(text)}</div>
-                    </div>
-                </div>
-            `;
-        }
-    }
-});
-
 const pages = await fetch("json/pages.json").then(r => r.json());
 
 async function showHome() {
@@ -114,23 +77,24 @@ async function showHome() {
     vorxel.setTitle({ title: "Vorxel.js" })
     vorxel.setHTML({ selector: "main", content: "" })
 
-    nwui.headings.create({
+    Headings.create({
         parent: "main",
         level: 1,
         content: "vorxel.js"
     });
 
-    nwui.cards.create({
+    Cards.create({
         parent: "main",
-        id: "links"
+        id: "links",
+        cards: []
     })
 
     pages.forEach(element => {
-        nwui.cards.addCard({
+        Cards.addCard({
             onclick: element.func,
             image: `img/links-icons/${element.techname}.svg`,
             heading: `${element.name}`,
-            parent: "#links"
+            parent: "links"
         })
     });
 
@@ -143,14 +107,16 @@ async function showFunctions() {
 
     const functions = await fetch("db.json").then(r => r.json());
 
-    nwui.headings.create({
+    Headings.create({
         level: 1,
         parent: "main",
         content: "Functions"
     })
-    nwui.tabs.create({
+
+    Tabs.create({
         parent: "main",
-        id: "functions"
+        id: "functions",
+        tabs: []
     })
 
     for (const func of functions) {
@@ -158,19 +124,20 @@ async function showFunctions() {
             `readme/${func.toLowerCase()}.md`
         ).then(r => r.text());
 
-        nwui.tabs.addTab({
+        Tabs.addTab({
             title: func,
-            parent: "#functions",
-            innerHTML: marked.parse(readme)
+            parent: "functions",
+            innerHTML: vorxel.parseMarkdown({ input: readme })
         });
     }
 }
 
+const readme = await fetch("readme.md").then(text => text.text());
+
 async function showAbout() {
     vorxel.scrollUp();
     vorxel.setTitle({ title: "About - vorxel.js" });
-    vorxel.setHTML({ selector: "main", content: marked.parse(await fetch("readme.md").then(r => r.text())) });
+    vorxel.setHTML({ selector: "main", content: vorxel.parseMarkdown({ input: readme})})
 }
-
 
 showHome()
