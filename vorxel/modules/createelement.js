@@ -29,10 +29,10 @@ export function createElement(options = {}) {
     }
 
     if (Array.isArray(options)) {
-        return options.map(option =>
+        options.forEach(option =>
             newElement(option.element, option.parent)
         );
     } else {
-        return newElement(options.element, options.parent);
+        newElement(options.element, options.parent);
     }
 }
