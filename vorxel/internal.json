@@ -1,4 +1,6 @@
 [
-    "returnReport",
-    "isNodeJS"
+    "isLinux",
+    "isNodeJS",
+    "isWindows",
+    "returnReport"
 ]
