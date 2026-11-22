@@ -1,5 +1,6 @@
 [
     "isLinux",
+    "isMacOS",
     "isNodeJS",
     "isWindows",
     "returnReport"
