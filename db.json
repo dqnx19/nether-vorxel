@@ -13,6 +13,7 @@
     "injectJS",
     "log",
     "parseMarkdown",
+    "reboot",
     "redirect",
     "removeClass",
     "removeId",
@@ -24,5 +25,6 @@
     "setHTML",
     "setId",
     "setText",
-    "setTitle"
+    "setTitle",
+    "shutdown"
 ]
